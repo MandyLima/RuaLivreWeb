@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.landing-page {
+    color: var(--text-dark);
+    background-color: var(--background);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-top: 80px;
+}
+
+.navbar-container {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #41427E;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    border-radius: 25px;
+    margin: 10px;
+    padding: 0 30px;
+    height: 70px;
+}
+
+.logo-titulo {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #ffffff;
+    color: #41427E;
+    transform: scale(1.05);
+    border-radius: 20px;
+    padding:10px 15px;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #3A3C9D;
+    width: 95%;
+    max-height: 1300px;
+    margin: 20px auto;
+    border-radius: 25px;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 5%;
+    overflow: hidden;
+
+
+}
+
+.hero-content {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 500px;
+}
+
+.hero-description {
+    color: white;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.btn-register {
+    font-size: 1.3rem;
+    background-color: white;
+    color: #41427E;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-register:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-image img {
+    max-width: 90%;
+    height: auto;
+    transform: rotate(-10deg) translateY(20px);
+}

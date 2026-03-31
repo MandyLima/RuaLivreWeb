@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .landing-page {
     font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
     color: #1A1D2E;
@@ -75,7 +79,6 @@
     position: relative;
 }
 
-/* grade de pontos decorativa */
 .hero-section::before {
     content: '';
     position: absolute;
@@ -113,7 +116,6 @@
     max-width: 500px;
 }
 
-/* badge "Sistema ativo 24h" */
 .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -151,7 +153,7 @@
 }
 
 .hero-highlight {
-    color: #00C8FF;
+    color: #fad503;
 }
 
 .hero-description {
@@ -185,6 +187,7 @@
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    float: left;
 }
 
 .hero-image img {
@@ -447,4 +450,17 @@
     padding-top: 28px;
     border-top: 1px solid rgba(255,255,255,0.06);
     margin-top: 4px;
+}
+
+/* Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out; /* Velocidade da subida */
+}
+
+/* Estado ativo (quando aparece) */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
 }

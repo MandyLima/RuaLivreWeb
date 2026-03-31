@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+    color: #1A1D2E;
+}
+
+.register-section {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.register-form-side {
+    flex: 1;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.register-brand-side {
+    flex: 1;
+    background-color: #1E1B5E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand-logo {
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 400px;
+}
+
+.card-title {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    color: #1E1B5E;
+    font-weight: bold;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-base {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.btn-register {
+    width: 100%;
+    padding: 14px;
+    background-color: #1E1B5E;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn-register:hover {
+    background-color: #2e2a8c;
+    transform: translateY(-2px);
+}
+

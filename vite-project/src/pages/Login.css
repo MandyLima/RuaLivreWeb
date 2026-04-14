@@ -6,13 +6,13 @@
     color: #1A1D2E;
 }
 
-.register-section {
+.login-section {
     display: flex;
     width: 100%;
     min-height: 100vh;
 }
 
-.register-form-side {
+.login-form-side {
     flex: 1;
     background-color: #FFFFFF;
     display: flex;
@@ -21,7 +21,7 @@
     padding: 2rem;
 }
 
-.register-brand-side {
+.login-brand-side {
     flex: 1;
     background-color: #1E1B5E;
     display: flex;
@@ -61,5 +61,3 @@
     border-radius: 8px;
     background-color: #f8f9fa;
 }
-
-

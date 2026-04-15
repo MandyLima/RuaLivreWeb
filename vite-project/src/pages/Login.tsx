@@ -7,21 +7,21 @@ import { Label } from '../components/ui/Label/label';
 import './Login.css';
 
 function Login() {
-    const [usuario, setUsuario] = useState('');
+    const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const MOCK_USER = "admin";
+        const MOCK_EMAIL = "adminRuaLivre@gmail.com";
         const MOCK_PASS = "RuaLivre";
 
-        if (usuario === MOCK_USER && senha === MOCK_PASS) {
+        if (email === MOCK_EMAIL && senha === MOCK_PASS) {
             alert("Sucesso! Entrando no sistema...");
             navigate("/");
         } else {
-            alert("Usuário ou senha incorretos!");
+            alert("Email ou senha incorretos!");
         }
     };
     return (
@@ -35,10 +35,10 @@ function Login() {
                             </CardHeader>
 
                             <div className="input-group">
-                                <Label htmlFor='usuario'>Usuário:</Label>
-                                <Input id='usuario' className='input-base' type='text' placeholder='usuário'
-                                    value={usuario}
-                                    onChange={(e) => setUsuario(e.target.value)} />
+                                <Label htmlFor='email'>Email:</Label>
+                                <Input id='email' className='input-base' type='text' placeholder='user@gmail.com'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)} />
                             </div>
 
                             <div className="input-group">

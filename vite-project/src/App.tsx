@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage  from './pages/LandingPage';
-import './App.css'
+import LandingPage from './pages/LandingPage';
+import DashboardPage from './pages/DashboardPage.tsx';
+import './App.css';
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </BrowserRouter>
   );

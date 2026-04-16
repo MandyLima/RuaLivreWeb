@@ -1,0 +1,17 @@
+.btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #1E1B5E;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #2e2a8c;
+    transform: translateY(-2px);
+}

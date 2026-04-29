@@ -14,6 +14,13 @@
   font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 50px;
+  color: white;
+}
+
+.icon {
+  stroke: white;
+  width: 20px;
+  height: 20px;
 }
 
 .nav {
@@ -31,6 +38,7 @@
   font-size: 1.1rem;
   opacity: 0.8;
   transition: 0.2s;
+  color: white;
 }
 
 .menuItem:hover { 
@@ -47,6 +55,7 @@
 
 .userAction {
   display: flex;
+  color: white;
   align-items: center;
   gap: 10px;
   cursor: pointer;

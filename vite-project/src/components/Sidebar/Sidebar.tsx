@@ -7,14 +7,14 @@ export default function Sidebar() {
       <div className={styles.logo}>Rua Livre</div>
 
       <nav className={styles.nav}>
-        <div className={styles.menuItem}><LayoutDashboard size={20} /> Menu</div>
-        <div className={styles.menuItem}><MapIcon size={20} /> Mapa</div>
-        <div className={styles.menuItem}><BarChart2 size={20} /> Média</div>
+        <div className={styles.menuItem}><LayoutDashboard className={styles.icon}/> Menu</div>
+        <div className={styles.menuItem}><MapIcon className={styles.icon}/> Mapa</div>
+        <div className={styles.menuItem}><BarChart2 className={styles.icon}/> Média</div>
       </nav>
 
       <div className={styles.footer}>
-        <div className={styles.userAction}><User size={18} /> USER</div>
-        <div className={styles.userAction}><LogOut size={18} /> LOGOUT</div>
+        <div className={styles.userAction}><User className={styles.icon}/> USER</div>
+        <div className={styles.userAction}><LogOut className={styles.icon}/> LOGOUT</div>
       </div>
     </aside>
   );

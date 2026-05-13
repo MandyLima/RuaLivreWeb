@@ -61,6 +61,7 @@ function Register() {
                             <Button className="btn-register" type="submit">
                                 Cadastrar
                             </Button>
+                            <a href="/login">Já tem uma conta? Entre aqui</a>
                         </Card>
                     </form>
                 </div>

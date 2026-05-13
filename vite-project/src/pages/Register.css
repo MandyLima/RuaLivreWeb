@@ -62,4 +62,7 @@
     background-color: #f8f9fa;
 }
 
-
+a{
+    text-decoration: none;
+    color: rgb(6, 54, 184);
+}

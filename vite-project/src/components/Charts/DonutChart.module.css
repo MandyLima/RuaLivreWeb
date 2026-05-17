@@ -1,0 +1,38 @@
+.donutCard {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid #edf2f7;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.legend {
+  display: flex; 
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legendItem { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+}
+
+.dot { 
+  width: 12px; 
+  height: 12px; 
+  border-radius: 50%; 
+}
+
+.legendText { 
+  font-size: 0.95rem; 
+  color: #4a5568; 
+}
+
+.chartWrapper { 
+  width: 140px; 
+  height: 140px; 
+}

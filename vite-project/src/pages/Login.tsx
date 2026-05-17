@@ -1,29 +1,39 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button/button';
 import { Card, CardHeader, CardTitle } from '../components/ui/Cards/card';
 import { Input } from '../components/ui/Input/input';
 import { Label } from '../components/ui/Label/label';
 import './Login.css';
+import authService from '../services/authService';
+
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const navigate = useNavigate();
 
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const [carregando, setCarregando] = useState(false);
 
-        const MOCK_EMAIL = "adminRuaLivre@gmail.com";
-        const MOCK_PASS = "RuaLivre";
+  const handleLogin = async (e: FormEvent) => {
+    e.preventDefault();
+    setErro('');
+    setCarregando(true);
 
-        if (email === MOCK_EMAIL && senha === MOCK_PASS) {
-            alert("Sucesso! Entrando no sistema...");
-            navigate("/");
-        } else {
-            alert("Email ou senha incorretos!");
-        }
-    };
+    try {
+      await authService.login({ email, senha });
+      alert('Login realizado com sucesso!');
+      navigate('/');
+    } catch (error: any) {
+      const mensagemErro = error.response?.data?.message || 'Erro ao fazer login. Verifique suas credenciais.';
+      setErro(mensagemErro);
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+
     return (
         <section className="login-section">
             <div className="login-form-side">
@@ -38,14 +48,18 @@ function Login() {
                                 <Label htmlFor='email'>Email:</Label>
                                 <Input id='email' className='input-base' type='text' placeholder='user@gmail.com'
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)} />
+                                    onChange={(e) => setEmail(e.target.value)} 
+                                    required
+                                    />
                             </div>
 
                             <div className="input-group">
                                 <Label htmlFor='senha'>Senha:</Label>
                                 <Input id='senha' className='input-base' type='password' placeholder='AfcI123!'
                                     value={senha}
-                                    onChange={(e) => setSenha(e.target.value)} />
+                                    onChange={(e) => setSenha(e.target.value)}
+                                    required 
+                                    />
                             </div>
 
                             <Button className="btn-register" type="submit">
@@ -61,4 +75,4 @@ function Login() {
         </section>
     );
 }
-export default Login;
+export default Login

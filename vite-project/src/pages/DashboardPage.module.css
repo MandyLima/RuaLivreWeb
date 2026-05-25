@@ -22,10 +22,28 @@
 }
 
 .topGrid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  flex-direction: column;
   gap: 25px;
   margin-bottom: 25px;
+}
+
+.statCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+@media (max-width: 768px) {
+  .statCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .statCards {
+    grid-template-columns: 1fr;
+  }
 }
 
 .mapWrapper {

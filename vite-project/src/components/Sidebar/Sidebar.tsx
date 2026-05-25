@@ -1,7 +1,21 @@
 import { LayoutDashboard, Map as MapIcon, BarChart2, User, LogOut } from 'lucide-react';
+import authService from '../../services/authService';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar() {
+  getUserName(): string | null {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const email = payload.sub || payload.email || '';
+    const nome = email.split('@')[0].replace(/[._]/g, ' ');
+    return nome.charAt(0).toUpperCase() + nome.slice(1) || 'Usuário';
+  } catch {
+    return 'Usuário';
+  }
+}
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>Rua Livre</div>
@@ -13,7 +27,7 @@ export default function Sidebar() {
       </nav>
 
       <div className={styles.footer}>
-        <div className={styles.userAction}><User className={styles.icon}/> USER</div>
+        <div className={styles.userAction}><User className={styles.icon} />Oi, {nome}</div>
         <div className={styles.userAction}><LogOut className={styles.icon}/> LOGOUT</div>
       </div>
     </aside>

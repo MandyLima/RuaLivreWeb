@@ -6,8 +6,11 @@ class AuthService {
 async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await api.post<LoginResponse>('/auth/login', credentials);
     
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
+    if (response.data.access_token) {
+      localStorage.setItem('token', response.data.access_token);
+      console.log('Token salvo:', response.data.access_token); 
+    } else {
+      console.log('token não encontrado na resposta!'); // ← adicione
     }
     
     return response.data;
@@ -19,24 +22,20 @@ async login(credentials: LoginRequest): Promise<LoginResponse> {
     return response.data;
   }
 
-  // Fazer logout
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('userName'); // Limpa nome do usuário também
   }
 
-  // Verificar se está autenticado
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  // Pegar nome do usuário (extrair do token JWT)
   getUserName(): string | null {
     const token = localStorage.getItem('token');
     if (!token) return null;
 
     try {
-      // Decodificar JWT (payload está na segunda parte)
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload.sub || payload.nome || payload.email || 'Usuário';
     } catch (error) {
@@ -45,7 +44,6 @@ async login(credentials: LoginRequest): Promise<LoginResponse> {
     }
   }
 
-  // Pegar iniciais do nome
   getUserInitials(): string {
     const name = this.getUserName();
     if (!name) return 'U';

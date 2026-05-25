@@ -24,7 +24,7 @@ function Login() {
     try {
       await authService.login({ email, senha });
       alert('Login realizado com sucesso!');
-      navigate('/');
+      navigate('/dashboard');
     } catch (error: any) {
       const mensagemErro = error.response?.data?.message || 'Erro ao fazer login. Verifique suas credenciais.';
       setErro(mensagemErro);

@@ -37,3 +37,30 @@ export interface DashboardStats {
   total_bairros_monitorados: number;
   alagamentos_por_regiao: AlagamentoPorRegiao[]; // ← separei em interface própria
 }
+
+export interface Camera {
+  id: number;
+  regiao_id: number;
+  endereco_rtsp: string;
+  localizacao: string;
+  status: string;
+  latitude: number;
+  longitude: number;
+  altitude_m: number;
+  bairro: string;
+  municipio: string;
+}
+
+export interface Alagamento {
+  id: number;
+  camera_id: number;
+  regiao_id: number;
+  nivel_agua: number;
+  confianca: number;
+  status: string;
+  data_hora: string;
+  latitude: number;
+  longitude: number;
+  bairro: string;
+  municipio: string;
+}

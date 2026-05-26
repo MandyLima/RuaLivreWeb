@@ -3,29 +3,27 @@ import './LandingPage.css';
 
 const LandingPage = () => {
 
-useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                // Quando o item entra na tela, adiciona a classe
-                entry.target.classList.add('active');
-            } else {
-                // Isso faz com que a animação resete para rodar de novo
-                entry.target.classList.remove('active');
-            }
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, {
+            threshold: 0.1, // Dispara quando 10% aparece
+            rootMargin: "0px 0px -50px 0px"
         });
-    }, { 
-        threshold: 0.1, // Dispara quando 10% aparece
-        rootMargin: "0px 0px -50px 0px" // Pequena margem para a animação não ser cortada
-    });
 
-    const elements = document.querySelectorAll('.reveal');
-    elements.forEach((el) => observer.observe(el));
+        const elements = document.querySelectorAll('.reveal');
+        elements.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
-}, []);
+        return () => observer.disconnect();
+    }, []);
 
-return(
+    return (
         <div className='landing-page'>
 
             {/* Navbar */}
@@ -55,11 +53,15 @@ return(
                             Indica os pontos com maior ocorrência de alagamentos na sua cidade,
                             para que você chegue ao destino com segurança.
                         </p>
-                        <button className='btn-register'>Cadastre-se</button>
+                        <button className='btn-register'>
+                            <a href="/register">
+                                Cadastre-se
+                            </a>
+                        </button>
                     </div>
 
                     <div className="hero-image reveal">
-                        <img src='src/assets/mobileLogin.png' alt='Imagem do celular com o app'/>
+                        <img src='src/assets/mobileLogin.png' alt='Imagem do celular com o app' />
                     </div>
                 </div>
             </section>
@@ -81,11 +83,10 @@ return(
                             plataforma acessível para que qualquer cidadão possa saber, em segundos,
                             quais ruas estão em risco de alagamento — e tomar a rota mais segura.
                         </p>
-        
+
                     </div>
                 </div>
             </section>
-
             {/* Cards Section */}
             <section id='funcao' className="cards-section">
                 <div className="cards-header">
@@ -94,39 +95,97 @@ return(
                 </div>
                 <div className="card-content">
                     <div className="card-body reveal">
-                        <img src="src/assets/location.png" className="card-icon" alt="Ícone de localização"/>
+                        <img src="src/assets/location.png" className="card-icon" alt="Ícone de localização" />
                         <h3>Veja os locais alagados</h3>
                         <p className="card-description">Acesse o mapa com os pontos de alagamento ativos agora, com atualização em tempo real.</p>
                     </div>
                     <div className="card-body reveal">
-                        <img src="src/assets/dashboard.png" className="card-icon" alt="Ícone de dashboard"/>
+                        <img src="src/assets/dashboard.png" className="card-icon" alt="Ícone de dashboard" />
                         <h3>Veja a quantidade de bairros afetados</h3>
                         <p className="card-description">Painel com estatísticas dos bairros atingidos e nível de severidade de cada ocorrência.</p>
                     </div>
                     <div className="card-body reveal">
-                        <img src="src/assets/map.png" className="card-icon" alt="Ícone de mapa"/>
+                        <img src="src/assets/map.png" className="card-icon" alt="Ícone de mapa" />
                         <h3>Mapa interativo</h3>
                         <p className="card-description">Explore a cidade, trace rotas seguras e receba alertas conforme você se movimenta.</p>
                     </div>
                 </div>
             </section>
+            {/* section IA*/}
+            <section className="ia-section">
+                <div className="ia-container">
+                    <div className="ia-text">
+                        <span className="section-tag">Inteligência Artificial</span>
+                        <h2 className="ia-title">
+                            Tecnologia que <span className="feature-highlight">enxerga</span> o perigo por você
+                        </h2>
+                        <p className="ia-description">
+                            O RuaLivre utiliza o modelo YOLO (You Only Look Once) — uma das IAs
+                            mais avançadas em visão computacional — para analisar imagens das
+                            câmeras municipais em tempo real e detectar automaticamente a
+                            presença de alagamentos nas vias urbanas.
+                        </p>
+                        <div className="ia-steps">
+                            <div className="ia-step">
+                                <div className="ia-step-number">1</div>
+                                <div>
+                                    <h4>Captura</h4>
+                                    <p>Câmeras IP transmitem vídeo contínuo das vias via protocolo RTSP</p>
+                                </div>
+                            </div>
+                            <div className="ia-step">
+                                <div className="ia-step-number">2</div>
+                                <div>
+                                    <h4>Análise</h4>
+                                    <p>A IA processa cada imagem em até 5 segundos, identificando água e medindo o nível de alagamento</p>
+                                </div>
+                            </div>
+                            <div className="ia-step">
+                                <div className="ia-step-number">3</div>
+                                <div>
+                                    <h4>Alerta</h4>
+                                    <p>Os dados são enviados à API e exibidos no mapa em tempo real para você</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="ia-stats reveal">
+                        <div className="ia-stat-card">
+                            <span className="ia-stat-number">90%</span>
+                            <span className="ia-stat-label">de precisão na detecção</span>
+                        </div>
+                        <div className="ia-stat-card">
+                            <span className="ia-stat-number">5s</span>
+                            <span className="ia-stat-label">tempo de processamento</span>
+                        </div>
+                        <div className="ia-stat-card">
+                            <span className="ia-stat-number">24h</span>
+                            <span className="ia-stat-label">monitoramento contínuo</span>
+                        </div>
+                        <div className="ia-stat-card">
+                            <span className="ia-stat-number">100+</span>
+                            <span className="ia-stat-label">requisições simultâneas</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* App */}
-            <div id='app'className="text-app reveal">
+            <div id='app' className="text-app reveal">
                 <h2>Utilize o nosso aplicativo</h2>
                 <p className="app-description">
                     Tenha alertas de alagamento sempre com você.
-                    Disponível gratuitamente para Android.
+                    Disponível em breve gratuitamente para Android.
                 </p>
-                <button className="btn-app">Baixe agora</button>
+                <button className="btn-app">Em Breve</button>
             </div>
-
             {/* Footer */}
             <footer className="footer-content">
                 <div className="footer-brand">
                     <span className='logo-titulo'>Rua Livre</span>
                     <p className="footer-brand-desc">
-                        Monitoramento de alagamentos urbanos.<br/>
+                        Monitoramento de alagamentos urbanos.<br />
                         Desenvolvido na Fatec Praia Grande.
                     </p>
                 </div>
@@ -137,7 +196,7 @@ return(
                     <li><a href="#funcao" className="footer-link">Função</a></li>
                     <li><a href="#app" className="footer-link">App</a></li>
                     <li><a href="#contato" className="footer-link">Contato</a></li>
-                </ul>  
+                </ul>
 
                 <ul id='contato' className="footer-column">
                     <li><h4>Suporte</h4></li>

@@ -3,21 +3,21 @@ import api from './api';
 import type { LoginRequest, LoginResponse, RegistrarRequest, RegistrarResponse } from '../types/api.types';
 
 class AuthService {
-async login(credentials: LoginRequest): Promise<LoginResponse> {
+  async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await api.post<LoginResponse>('/auth/login', credentials);
-    
+
     if (response.data.access_token) {
       localStorage.setItem('token', response.data.access_token);
-      console.log('Token salvo:', response.data.access_token); 
+      console.log('Token salvo:', response.data.access_token);
     } else {
       console.log('token não encontrado na resposta!'); // ← adicione
     }
-    
+
     return response.data;
   }
 
   async registrar(data: RegistrarRequest): Promise<RegistrarResponse> {
-    console.log('Dados enviados:', data); 
+    console.log('Dados enviados:', data);
     const response = await api.post<RegistrarResponse>('/auth/register', data);
     return response.data;
   }
@@ -47,12 +47,20 @@ async login(credentials: LoginRequest): Promise<LoginResponse> {
   getUserInitials(): string {
     const name = this.getUserName();
     if (!name) return 'U';
-    
+
     const parts = name.split(' ');
     if (parts.length >= 2) {
       return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
     }
     return name.substring(0, 2).toUpperCase();
+  }
+
+  async changePassword(dados: { senha_atual: string; nova_senha: string }): Promise<void> {
+    await api.post('/auth/change-password', dados);
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    await api.post('/auth/forgot-password', { email });
   }
 }
 export default new AuthService();

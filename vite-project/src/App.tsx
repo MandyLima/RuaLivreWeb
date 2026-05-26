@@ -4,6 +4,7 @@ import DashboardPage from './pages/DashboardPage.tsx';
 import Register  from './pages/Register';
 import './App.css'
 import Login from './pages/Login';
+import ChangePassword from './pages/ChangePassword.tsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/account-settings" element={<ChangePassword />} />
       </Routes>
     </BrowserRouter>
   );

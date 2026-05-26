@@ -64,7 +64,7 @@ function Login() {
                                         id='senha'
                                         className='input-base'
                                         type={mostrarSenha ? 'text' : 'password'}
-                                        placeholder='AfcI123!'
+                                        placeholder='••••••••'
                                         value={senha}
                                         onChange={(e) => setSenha(e.target.value)}
                                         required

@@ -7,21 +7,37 @@ import BarChartComponent from '../components/Charts/BarChart';
 import type { DashboardStats } from '../types/api.types';
 import { useEffect, useState } from 'react';
 import dashboardService from '../services/dashboardService';
+import api from '../services/api';
 
 export default function DashboardPage() {
   const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null);
+  const [mediaData, setMediaData] = useState<{ name: string; media: number }[]>([]);
 
   useEffect(() => {
     const fetchDashboardStats = async () => {
       try {
-        const stats = await dashboardService.getStats(); // ← minúsculo
+        const stats = await dashboardService.getStats();
         setDashboardStats(stats);
       } catch (error) {
         console.error('Erro ao buscar dados do dashboard', error);
       }
     };
 
+    const fetchMediaPorRegiao = async () => {
+      try {
+        const res = await api.get('/dashboard/alagamento/media-por-regiao');
+        const formatted = res.data.map((item: any) => ({
+          name: item.nome,
+          media: item.media,
+        }));
+        setMediaData(formatted);
+      } catch (error) {
+        console.error('Erro ao buscar média por região', error);
+      }
+    };
+
     fetchDashboardStats();
+    fetchMediaPorRegiao();
   }, []);
 
   if (!dashboardStats) {
@@ -29,33 +45,11 @@ export default function DashboardPage() {
   }
 
   const PIE_DATA = [
-    {
-      name: 'Alagamentos Ativos',
-      value: dashboardStats.total_alagamentos_ativos,
-      color: '#F08E33'
-    },
-    {
-      name: 'Câmeras Ativas',
-      value: dashboardStats.total_cameras_ativas,
-      color: '#5D9CEC'
-    },
-    {
-      name: 'Alertas Hoje',
-      value: dashboardStats.total_alertas_hoje,
-      color: '#E74C3C'
-    },
-    {
-      name: 'Bairros Monitorados',
-      value: dashboardStats.total_bairros_monitorados,
-      color: '#2ECC71'
-    },
+    { name: 'Alagamentos Ativos', value: dashboardStats.total_alagamentos_ativos, color: '#F08E33' },
+    { name: 'Câmeras Ativas', value: dashboardStats.total_cameras_ativas, color: '#5D9CEC' },
+    { name: 'Alertas Hoje', value: dashboardStats.total_alertas_hoje, color: '#E74C3C' },
+    { name: 'Bairros Monitorados', value: dashboardStats.total_bairros_monitorados, color: '#2ECC71' },
   ];
-
-  const barData = dashboardStats.alagamentos_por_regiao.map((item) => ({
-    name: item.regiao,
-    anterior: 0,
-    atual: item.quantidade,
-  }));
 
   return (
     <div className={styles.container}>
@@ -72,7 +66,7 @@ export default function DashboardPage() {
             <StatCard title="Alertas Hoje" value={dashboardStats.total_alertas_hoje} />
             <StatCard title="Bairros Monitorados" value={dashboardStats.total_bairros_monitorados} />
           </div>
-          <DonutChart data={PIE_DATA} /> {/* ← fora do statCards */}
+          <DonutChart data={PIE_DATA} />
         </div>
 
         <div className={styles.mapWrapper}>
@@ -82,11 +76,10 @@ export default function DashboardPage() {
         <div className={styles.barChartCard}>
           <h3 className={styles.chartTitleCenter}>Média dos locais de alagamento</h3>
           <div className={styles.barChartWrapper}>
-            <BarChartComponent data={barData} /> {/* ← passando dados reais */}
+            <BarChartComponent data={mediaData} />
           </div>
         </div>
       </main>
     </div>
-    
   );
 }

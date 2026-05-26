@@ -4,7 +4,7 @@ import StatCard from '../components/StatCard/StatCard';
 import DonutChart from '../components/Charts/DonutChart';
 import MapWidget from '../components/MapWidget/MapWidget';
 import BarChartComponent from '../components/Charts/BarChart';
-import type { DashboardStats } from '../types/api.types';
+import type { DashboardStats, Historico } from '../types/api.types';
 import { useEffect, useState } from 'react';
 import dashboardService from '../services/dashboardService';
 import api from '../services/api';
@@ -12,6 +12,7 @@ import api from '../services/api';
 export default function DashboardPage() {
   const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null);
   const [mediaData, setMediaData] = useState<{ name: string; media: number }[]>([]);
+  const [historico, setHistorico] = useState<Historico[]>([]);
 
   useEffect(() => {
     const fetchDashboardStats = async () => {
@@ -34,6 +35,9 @@ export default function DashboardPage() {
       } catch (error) {
         console.error('Erro ao buscar média por região', error);
       }
+      dashboardService.getHistorico(30)
+        .then(data => setHistorico(data.historico ?? data))
+        .catch(console.error);
     };
 
     fetchDashboardStats();
@@ -50,10 +54,12 @@ export default function DashboardPage() {
     { name: 'Alertas Hoje', value: dashboardStats.total_alertas_hoje, color: '#E74C3C' },
     { name: 'Bairros Monitorados', value: dashboardStats.total_bairros_monitorados, color: '#2ECC71' },
   ];
-
+  const historicoOrdenado = [...historico].sort(
+    (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
+  );
   return (
     <div className={styles.container}>
-      <Sidebar/>
+      <Sidebar />
       <main className={styles.mainSection}>
         <header className={styles.header}>
           <h1 className={styles.title}>DASHBOARD</h1>
@@ -77,6 +83,44 @@ export default function DashboardPage() {
           <h3 className={styles.chartTitleCenter}>Média dos locais de alagamento</h3>
           <div className={styles.barChartWrapper}>
             <BarChartComponent data={mediaData} />
+          </div>
+        </div>
+        {/* Histórico */}
+        <div className={styles.historyCard}>
+          <h3 className={styles.chartTitleCenter}>Histórico de Registros</h3>
+          <div className={styles.tableWrapper}>
+            <table className={styles.dataTable}>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th className={styles.textRight}>Nível da Água</th>
+                  <th className={styles.textRight}>Risco</th>
+                </tr>
+              </thead>
+              <tbody>
+                {historicoOrdenado.length === 0 ? (
+                  <tr>
+                    <td colSpan={3} style={{ textAlign: 'center', padding: '20px', color: '#6B7280' }}>
+                      Nenhum registro encontrado
+                    </td>
+                  </tr>
+                ) : (
+                  historicoOrdenado.map((item, index) => (
+                    <tr key={index}>
+                      <td>
+                        {new Date(item.data).toLocaleDateString('pt-BR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric'
+                        })}
+                      </td>
+                      <td className={styles.textRight}>{item.total_ocorrencias ?? '-'}</td>
+                      <td className={styles.textRight}>{item.nivel_agua_medio ?? '-'}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </main>

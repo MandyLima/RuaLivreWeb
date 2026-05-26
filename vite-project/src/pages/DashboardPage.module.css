@@ -60,6 +60,79 @@
   height: 250px; 
   width: 100%; 
 }
+/* Container/Card do Histórico */
+.historyCard {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+/* Wrapper para controle de scroll em telas menores */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+/* Estrutura Base da Tabela */
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+  color: #334155;
+}
+
+/* Cabeçalho */
+.dataTable th {
+  background-color: #f8fafc;
+  color: #64748b;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* Linhas da tabela */
+.dataTable td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s ease;
+}
+
+/* Remove a linha divisória do último elemento */
+.dataTable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Efeito Hover nas linhas */
+.dataTable tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Classes Utilitárias */
+.textRight {
+  text-align: right;
+}
+
+.rowValue {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+  color: #64748b;
+}
 
 @media (max-width: 768px) {
   .statCards {

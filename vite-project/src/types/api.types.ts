@@ -37,7 +37,15 @@ export interface DashboardStats {
   total_bairros_monitorados: number;
   alagamentos_por_regiao: AlagamentoPorRegiao[]; // ← separei em interface própria
 }
+export interface Historico {
+  data: string;
+  total_ocorrencias: number;
+  nivel_agua_medio: number;
+}
 
+export interface DashboardHistorico {
+  historico: Historico[];
+}
 export interface Camera {
   id: number;
   regiao_id: number;

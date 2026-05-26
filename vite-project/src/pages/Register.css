@@ -6,6 +6,7 @@
     color: #1A1D2E;
 }
 
+/* ===== LAYOUT ===== */
 .register-section {
     display: flex;
     width: 100%;
@@ -40,6 +41,7 @@
     max-width: 400px;
 }
 
+/* ===== FORMULÁRIO ===== */
 .card-title {
     font-size: 2.2rem;
     margin-bottom: 25px;
@@ -52,6 +54,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    position: relative;
 }
 
 .input-base {
@@ -62,10 +65,12 @@
     background-color: #f8f9fa;
 }
 
-a{
+a {
     text-decoration: none;
     color: rgb(6, 54, 184);
 }
+
+/* ===== REQUISITOS DE SENHA ===== */
 .requisitos {
     background: #F8F9FA;
     border: 1px solid #E5E7EB;
@@ -81,26 +86,80 @@ a{
     margin-bottom: 4px;
 }
 
-.req-ok {
-    font-size: 12px;
-    color: #22C55E;
-    margin: 2px 0;
-}
-
-.req-erro {
-    font-size: 12px;
-    color: #EF4444;
-    margin: 2px 0;
-}
-
-.senha-diferente {
-    font-size: 12px;
-    color: #EF4444;
-    margin-top: 4px;
-}
-
+.req-ok,
+.req-erro,
+.senha-diferente,
 .senha-igual {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: 12px;
+    margin: 2px 0;
+}
+
+.req-ok,
+.senha-igual {
     color: #22C55E;
+}
+
+.req-erro,
+.senha-diferente {
+    color: #EF4444;
+}
+
+.senha-diferente,
+.senha-igual {
     margin-top: 4px;
+}
+
+/* ===== RESPONSIVO 768px ===== */
+@media (max-width: 768px) {
+
+    .register-section {
+        flex-direction: column;
+    }
+
+    .register-brand-side {
+        min-height: 160px;
+        flex: none;
+        align-items: flex-start;
+        padding: 32px 24px;
+    }
+
+    .register-form-side {
+        flex: 1;
+        align-items: flex-start;
+        padding: 32px 24px;
+    }
+
+    .form-wrapper {
+        max-width: 100%;
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+}
+
+/* ===== RESPONSIVO 400px ===== */
+@media (max-width: 400px) {
+
+    .register-brand-side {
+        min-height: 120px;
+        padding: 24px 16px;
+    }
+
+    .register-form-side {
+        padding: 24px 16px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .input-base {
+        padding: 10px;
+        font-size: 14px;
+    }
 }

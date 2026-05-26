@@ -66,3 +66,41 @@ a{
     text-decoration: none;
     color: rgb(6, 54, 184);
 }
+.requisitos {
+    background: #F8F9FA;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 6px;
+}
+
+.requisitos-titulo {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6B7280;
+    margin-bottom: 4px;
+}
+
+.req-ok {
+    font-size: 12px;
+    color: #22C55E;
+    margin: 2px 0;
+}
+
+.req-erro {
+    font-size: 12px;
+    color: #EF4444;
+    margin: 2px 0;
+}
+
+.senha-diferente {
+    font-size: 12px;
+    color: #EF4444;
+    margin-top: 4px;
+}
+
+.senha-igual {
+    font-size: 12px;
+    color: #22C55E;
+    margin-top: 4px;
+}

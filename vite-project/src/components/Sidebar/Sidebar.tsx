@@ -3,9 +3,9 @@ import authService from '../../services/authService';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar() {
-  getUserName(): string | null {
+  const getName = (): string => {
   const token = localStorage.getItem('token');
-  if (!token) return null;
+  if (!token) return 'Usuario';
 
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
@@ -27,7 +27,7 @@ export default function Sidebar() {
       </nav>
 
       <div className={styles.footer}>
-        <div className={styles.userAction}><User className={styles.icon} />Oi, {nome}</div>
+        <div className={styles.userAction}><User className={styles.icon} />Oi, {getName()}</div>
         <div className={styles.userAction}><LogOut className={styles.icon}/> LOGOUT</div>
       </div>
     </aside>

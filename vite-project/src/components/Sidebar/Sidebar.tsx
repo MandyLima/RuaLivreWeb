@@ -3,19 +3,14 @@ import authService from '../../services/authService';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar() {
+<<<<<<< HEAD
   const getName = (): string => {
   const token = localStorage.getItem('token');
   if (!token) return 'Usuario';
+=======
+  const nome = authService.getUserName();
+>>>>>>> c24df17 (feat: refactor Sidebar to use authService for user name retrieval and improve display logic)
 
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const email = payload.sub || payload.email || '';
-    const nome = email.split('@')[0].replace(/[._]/g, ' ');
-    return nome.charAt(0).toUpperCase() + nome.slice(1) || 'Usuário';
-  } catch {
-    return 'Usuário';
-  }
-}
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>Rua Livre</div>
@@ -27,7 +22,11 @@ export default function Sidebar() {
       </nav>
 
       <div className={styles.footer}>
+<<<<<<< HEAD
         <div className={styles.userAction}><User className={styles.icon} />Oi, {getName()}</div>
+=======
+        <div className={styles.userAction}><User className={styles.icon}/> Oi, {nome?.split('@')[0]}</div>
+>>>>>>> c24df17 (feat: refactor Sidebar to use authService for user name retrieval and improve display logic)
         <div className={styles.userAction}><LogOut className={styles.icon}/> LOGOUT</div>
       </div>
     </aside>

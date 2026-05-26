@@ -8,11 +8,15 @@ import type { DashboardStats, Historico } from '../types/api.types';
 import { useEffect, useState } from 'react';
 import dashboardService from '../services/dashboardService';
 import api from '../services/api';
+import { LayoutDashboard, Map as MapIcon, BarChart2, History } from 'lucide-react';
+
+type MobileTab = 'inicio' | 'mapa' | 'dados' | 'historico';
 
 export default function DashboardPage() {
   const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null);
   const [mediaData, setMediaData] = useState<{ name: string; media: number }[]>([]);
   const [historico, setHistorico] = useState<Historico[]>([]);
+  const [activeTab, setActiveTab] = useState<MobileTab>('inicio');
 
   useEffect(() => {
     const fetchDashboardStats = async () => {
@@ -45,7 +49,7 @@ export default function DashboardPage() {
   }, []);
 
   if (!dashboardStats) {
-    return <div>Carregando...</div>;
+    return <div className={styles.loading}>Carregando...</div>;
   }
 
   const PIE_DATA = [
@@ -59,74 +63,187 @@ export default function DashboardPage() {
     (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
   );
 
+  //mobile
+  const renderMobileContent = () => {
+    switch (activeTab) {
+      case 'mapa':
+        return (
+          <div style={{ height: 'calc(100vh - 64px)', marginTop: '-16px', marginLeft: '-16px', marginRight: '-16px' }}>
+            <MapWidget />
+          </div>
+        );
+      case 'dados':
+        return (
+          <>
+            <div id="menu" className={styles.topGrid}>
+              <div className={styles.statCards}>
+                <StatCard title="Alagamentos Ativos" value={dashboardStats.total_alagamentos_ativos} />
+                <StatCard title="Câmeras Ativas" value={dashboardStats.total_cameras_ativas} />
+                <StatCard title="Alertas Hoje" value={dashboardStats.total_alertas_hoje} />
+                <StatCard title="Bairros Monitorados" value={dashboardStats.total_bairros_monitorados} />
+              </div>
+              <DonutChart data={PIE_DATA} />
+            </div>
+            <div id="media" className={styles.barChartCard}>
+              <h3 className={styles.chartTitleCenter}>Média dos locais de alagamento</h3>
+              <div className={styles.barChartWrapper}>
+                <BarChartComponent data={mediaData} />
+              </div>
+            </div>
+          </>
+        );
+      case 'historico':
+        return (
+          <div id="historico" className={styles.historyCard}>
+            <h3 className={styles.chartTitleCenter}>Histórico de Registros</h3>
+            <div className={styles.tableWrapper}>
+              <table className={styles.dataTable}>
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th className={styles.textRight}>Ocorrências</th>
+                    <th className={styles.textRight}>Nível Médio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {historicoOrdenado.length === 0 ? (
+                    <tr>
+                      <td colSpan={3} style={{ textAlign: 'center', padding: '20px', color: '#6B7280' }}>
+                        Nenhum registro encontrado
+                      </td>
+                    </tr>
+                  ) : (
+                    historicoOrdenado.map((item, index) => (
+                      <tr key={index}>
+                        <td>{new Date(item.data).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
+                        <td className={styles.textRight}>{item.total_ocorrencias ?? '-'}</td>
+                        <td className={styles.textRight}>{item.nivel_agua_medio ?? '-'}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
+      default: 
+        return (
+          <>
+            <div id="menu" className={styles.topGrid}>
+              <div className={styles.statCards}>
+                <StatCard title="Alagamentos Ativos" value={dashboardStats.total_alagamentos_ativos} />
+                <StatCard title="Câmeras Ativas" value={dashboardStats.total_cameras_ativas} />
+                <StatCard title="Alertas Hoje" value={dashboardStats.total_alertas_hoje} />
+                <StatCard title="Bairros Monitorados" value={dashboardStats.total_bairros_monitorados} />
+              </div>
+              <DonutChart data={PIE_DATA} />
+            </div>
+          </>
+        );
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <Sidebar />
+      <div className={styles.sidebarWrapper}>
+        <Sidebar />
+      </div>
+
       <main className={styles.mainSection}>
         <header className={styles.header}>
           <h1 className={styles.title}>DASHBOARD</h1>
         </header>
 
-        <div id="menu" className={styles.topGrid}>
-          <div className={styles.statCards}>
-            <StatCard title="Alagamentos Ativos" value={dashboardStats.total_alagamentos_ativos} />
-            <StatCard title="Câmeras Ativas" value={dashboardStats.total_cameras_ativas} />
-            <StatCard title="Alertas Hoje" value={dashboardStats.total_alertas_hoje} />
-            <StatCard title="Bairros Monitorados" value={dashboardStats.total_bairros_monitorados} />
+        <div className={styles.desktopContent}>
+          <div id="menu" className={styles.topGrid}>
+            <div className={styles.statCards}>
+              <StatCard title="Alagamentos Ativos" value={dashboardStats.total_alagamentos_ativos} />
+              <StatCard title="Câmeras Ativas" value={dashboardStats.total_cameras_ativas} />
+              <StatCard title="Alertas Hoje" value={dashboardStats.total_alertas_hoje} />
+              <StatCard title="Bairros Monitorados" value={dashboardStats.total_bairros_monitorados} />
+            </div>
+            <DonutChart data={PIE_DATA} />
           </div>
-          <DonutChart data={PIE_DATA} />
-        </div>
 
-        <div id="mapa" className={styles.mapWrapper}>
-          <MapWidget />
-        </div>
-
-        <div id="media" className={styles.barChartCard}>
-          <h3 className={styles.chartTitleCenter}>Média dos locais de alagamento</h3>
-          <div className={styles.barChartWrapper}>
-            <BarChartComponent data={mediaData} />
+          <div id="mapa" className={styles.mapWrapper}>
+            <MapWidget />
           </div>
-        </div>
 
-        <div id="historico" className={styles.historyCard}>
-          <h3 className={styles.chartTitleCenter}>Histórico de Registros</h3>
-          <div className={styles.tableWrapper}>
-            <table className={styles.dataTable}>
-              <thead>
-                <tr>
-                  <th>Data</th>
-                  <th className={styles.textRight}>Nível da Água</th>
-                  <th className={styles.textRight}>Risco</th>
-                </tr>
-              </thead>
-              <tbody>
-                {historicoOrdenado.length === 0 ? (
+          <div id="media" className={styles.barChartCard}>
+            <h3 className={styles.chartTitleCenter}>Média dos locais de alagamento</h3>
+            <div className={styles.barChartWrapper}>
+              <BarChartComponent data={mediaData} />
+            </div>
+          </div>
+
+          <div id="historico" className={styles.historyCard}>
+            <h3 className={styles.chartTitleCenter}>Histórico de Registros</h3>
+            <div className={styles.tableWrapper}>
+              <table className={styles.dataTable}>
+                <thead>
                   <tr>
-                    <td colSpan={3} style={{ textAlign: 'center', padding: '20px', color: '#6B7280' }}>
-                      Nenhum registro encontrado
-                    </td>
+                    <th>Data</th>
+                    <th className={styles.textRight}>Ocorrências</th>
+                    <th className={styles.textRight}>Nível Médio</th>
                   </tr>
-                ) : (
-                  historicoOrdenado.map((item, index) => (
-                    <tr key={index}>
-                      <td>
-                        {new Date(item.data).toLocaleDateString('pt-BR', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric'
-                        })}
+                </thead>
+                <tbody>
+                  {historicoOrdenado.length === 0 ? (
+                    <tr>
+                      <td colSpan={3} style={{ textAlign: 'center', padding: '20px', color: '#6B7280' }}>
+                        Nenhum registro encontrado
                       </td>
-                      <td className={styles.textRight}>{item.total_ocorrencias ?? '-'}</td>
-                      <td className={styles.textRight}>{item.nivel_agua_medio ?? '-'}</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    historicoOrdenado.map((item, index) => (
+                      <tr key={index}>
+                        <td>{new Date(item.data).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
+                        <td className={styles.textRight}>{item.total_ocorrencias ?? '-'}</td>
+                        <td className={styles.textRight}>{item.nivel_agua_medio ?? '-'}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
+        <div className={styles.mobileContent}>
+          {renderMobileContent()}
+        </div>
       </main>
+
+      <nav className={styles.bottomNav}>
+        <button
+          className={`${styles.bottomNavItem} ${activeTab === 'inicio' ? styles.active : ''}`}
+          onClick={() => setActiveTab('inicio')}
+        >
+          <LayoutDashboard />
+          Início
+        </button>
+        <button
+          className={`${styles.bottomNavItem} ${activeTab === 'mapa' ? styles.active : ''}`}
+          onClick={() => setActiveTab('mapa')}
+        >
+          <MapIcon />
+          Mapa
+        </button>
+        <button
+          className={`${styles.bottomNavItem} ${activeTab === 'dados' ? styles.active : ''}`}
+          onClick={() => setActiveTab('dados')}
+        >
+          <BarChart2 />
+          Dados
+        </button>
+        <button
+          className={`${styles.bottomNavItem} ${activeTab === 'historico' ? styles.active : ''}`}
+          onClick={() => setActiveTab('historico')}
+        >
+          <History />
+          Histórico
+        </button>
+      </nav>
     </div>
   );
 }

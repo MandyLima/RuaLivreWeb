@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './LandingPage.css';
 
 const LandingPage = () => {
+    const [menuAberto, setMenuAberto] = useState(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -13,7 +14,7 @@ const LandingPage = () => {
                 }
             });
         }, {
-            threshold: 0.1, // Dispara quando 10% aparece
+            threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"
         });
 
@@ -23,19 +24,48 @@ const LandingPage = () => {
         return () => observer.disconnect();
     }, []);
 
+    const fecharMenu = () => setMenuAberto(false);
+
     return (
         <div className='landing-page'>
 
             {/* Navbar */}
             <nav className='navbar-container'>
                 <span className='logo-titulo'>Rua Livre</span>
+
+                {/* Links desktop */}
                 <div className='navbar-links'>
                     <a href='#inicio' className='nav-link'>Início</a>
                     <a href='#funcao' className='nav-link'>Função</a>
                     <a href='#app' className='nav-link'>App</a>
                     <a href='#contato' className='nav-link'>Contato</a>
                 </div>
+
+                {/* Botão hamburguer */}
+                <button
+                    className={`hamburger ${menuAberto ? 'hamburger-aberto' : ''}`}
+                    onClick={() => setMenuAberto(!menuAberto)}
+                    aria-label="Menu"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </nav>
+
+            {/* Menu mobile */}
+            <div className={`menu-mobile ${menuAberto ? 'menu-mobile-aberto' : ''}`}>
+                <a href='#inicio' className='menu-mobile-link' onClick={fecharMenu}>Início</a>
+                <a href='#funcao' className='menu-mobile-link' onClick={fecharMenu}>Função</a>
+                <a href='#app' className='menu-mobile-link' onClick={fecharMenu}>App</a>
+                <a href='#contato' className='menu-mobile-link' onClick={fecharMenu}>Contato</a>
+                <a href='/register' className='menu-mobile-link menu-mobile-cta' onClick={fecharMenu}>Cadastre-se</a>
+            </div>
+
+            {/* Overlay */}
+            {menuAberto && (
+                <div className='menu-overlay' onClick={fecharMenu} />
+            )}
 
             {/* Hero Section */}
             <section id='inicio' className="hero-section">
@@ -54,9 +84,7 @@ const LandingPage = () => {
                             para que você chegue ao destino com segurança.
                         </p>
                         <button className='btn-register'>
-                            <a href="/register">
-                                Cadastre-se
-                            </a>
+                            <a href="/register">Cadastre-se</a>
                         </button>
                     </div>
 
@@ -83,10 +111,10 @@ const LandingPage = () => {
                             plataforma acessível para que qualquer cidadão possa saber, em segundos,
                             quais ruas estão em risco de alagamento — e tomar a rota mais segura.
                         </p>
-
                     </div>
                 </div>
             </section>
+
             {/* Cards Section */}
             <section id='funcao' className="cards-section">
                 <div className="cards-header">
@@ -111,7 +139,8 @@ const LandingPage = () => {
                     </div>
                 </div>
             </section>
-            {/* section IA*/}
+
+            {/* Seção IA */}
             <section className="ia-section">
                 <div className="ia-container">
                     <div className="ia-text">
@@ -178,8 +207,11 @@ const LandingPage = () => {
                     Tenha alertas de alagamento sempre com você.
                     Disponível em breve gratuitamente para Android.
                 </p>
-                <button className="btn-app">Em Breve</button>
+                <button className="btn-app" disabled style={{ opacity: 0.6, cursor: 'not-allowed' }}>
+                    Em breve
+                </button>
             </div>
+
             {/* Footer */}
             <footer className="footer-content">
                 <div className="footer-brand">

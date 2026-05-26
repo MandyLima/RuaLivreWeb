@@ -3,13 +3,12 @@ import authService from '../../services/authService';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar() {
-<<<<<<< HEAD
-  const getName = (): string => {
-  const token = localStorage.getItem('token');
-  if (!token) return 'Usuario';
-=======
   const nome = authService.getUserName();
->>>>>>> c24df17 (feat: refactor Sidebar to use authService for user name retrieval and improve display logic)
+
+  const handleLogout = () => {
+    authService.logout();
+    window.location.href = '/login';
+  };
 
   return (
     <aside className={styles.sidebar}>
@@ -22,12 +21,12 @@ export default function Sidebar() {
       </nav>
 
       <div className={styles.footer}>
-<<<<<<< HEAD
-        <div className={styles.userAction}><User className={styles.icon} />Oi, {getName()}</div>
-=======
-        <div className={styles.userAction}><User className={styles.icon}/> Oi, {nome?.split('@')[0]}</div>
->>>>>>> c24df17 (feat: refactor Sidebar to use authService for user name retrieval and improve display logic)
-        <div className={styles.userAction}><LogOut className={styles.icon}/> LOGOUT</div>
+        <div className={styles.userAction}>
+          <User className={styles.icon}/> Oi, {nome?.split('@')[0] ?? 'Usuário'}
+        </div>
+        <div className={styles.userAction} onClick={handleLogout} style={{ cursor: 'pointer' }}>
+          <LogOut className={styles.icon}/> LOGOUT
+        </div>
       </div>
     </aside>
   );

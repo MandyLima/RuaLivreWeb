@@ -59,7 +59,7 @@ export default function DashboardPage() {
 
   return (
     <div className={styles.container}>
-      <Sidebar />
+      <Sidebar/>
       <main className={styles.mainSection}>
         <header className={styles.header}>
           <h1 className={styles.title}>DASHBOARD</h1>
@@ -87,5 +87,6 @@ export default function DashboardPage() {
         </div>
       </main>
     </div>
+    
   );
 }

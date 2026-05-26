@@ -54,9 +54,11 @@ export default function DashboardPage() {
     { name: 'Alertas Hoje', value: dashboardStats.total_alertas_hoje, color: '#E74C3C' },
     { name: 'Bairros Monitorados', value: dashboardStats.total_bairros_monitorados, color: '#2ECC71' },
   ];
+
   const historicoOrdenado = [...historico].sort(
     (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
   );
+
   return (
     <div className={styles.container}>
       <Sidebar />
@@ -65,7 +67,7 @@ export default function DashboardPage() {
           <h1 className={styles.title}>DASHBOARD</h1>
         </header>
 
-        <div className={styles.topGrid}>
+        <div id="menu" className={styles.topGrid}>
           <div className={styles.statCards}>
             <StatCard title="Alagamentos Ativos" value={dashboardStats.total_alagamentos_ativos} />
             <StatCard title="Câmeras Ativas" value={dashboardStats.total_cameras_ativas} />
@@ -75,18 +77,18 @@ export default function DashboardPage() {
           <DonutChart data={PIE_DATA} />
         </div>
 
-        <div className={styles.mapWrapper}>
+        <div id="mapa" className={styles.mapWrapper}>
           <MapWidget />
         </div>
 
-        <div className={styles.barChartCard}>
+        <div id="media" className={styles.barChartCard}>
           <h3 className={styles.chartTitleCenter}>Média dos locais de alagamento</h3>
           <div className={styles.barChartWrapper}>
             <BarChartComponent data={mediaData} />
           </div>
         </div>
-        {/* Histórico */}
-        <div className={styles.historyCard}>
+
+        <div id="historico" className={styles.historyCard}>
           <h3 className={styles.chartTitleCenter}>Histórico de Registros</h3>
           <div className={styles.tableWrapper}>
             <table className={styles.dataTable}>
@@ -123,6 +125,7 @@ export default function DashboardPage() {
             </table>
           </div>
         </div>
+
       </main>
     </div>
   );

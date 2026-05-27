@@ -1,6 +1,6 @@
 // Login.tsx
 import { useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button/button';
 import { Card, CardHeader, CardTitle } from '../components/ui/Cards/card';
 import { Input } from '../components/ui/Input/input';
@@ -73,6 +73,9 @@ function Login() {
                                         mostrar={mostrarSenha}
                                         onClick={() => setMostrarSenha(!mostrarSenha)}
                                     />
+                                </div>
+                                <div className="forgot-link-wrap">
+                                    <Link to="/forgot-password" className="forgot-link">Esqueci minha senha</Link>
                                 </div>
                             </div>
 

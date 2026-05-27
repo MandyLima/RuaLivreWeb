@@ -61,7 +61,7 @@ class AuthService {
   }
 
   async changePassword(dados: { senha_atual: string; nova_senha: string }): Promise<void> {
-    await api.post('/auth/change-password', dados);
+    await api.post('/auth/me/change-password', dados);
   }
 
   async forgotPassword(email: string): Promise<void> {

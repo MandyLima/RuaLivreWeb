@@ -5,6 +5,7 @@ import Register  from './pages/Register';
 import './App.css'
 import Login from './pages/Login';
 import ChangePassword from './pages/ChangePassword.tsx';
+import ForgotPassword from './pages/ForgotPassword.tsx';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/account-settings" element={<ChangePassword />} />
       </Routes>
     </BrowserRouter>

@@ -41,8 +41,8 @@
   color: white;
 }
 
-.menuItem:hover { 
-  opacity: 1; 
+.menuItem:hover {
+  opacity: 1;
 }
 
 .footer {
@@ -61,4 +61,35 @@
   cursor: pointer;
   font-size: 0.9rem;
   text-transform: uppercase;
+}
+
+.userAction:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.profileOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.18s ease;
+}
+
+.profileModal {
+  position: relative;
+  animation: slideUp 0.22s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
 }

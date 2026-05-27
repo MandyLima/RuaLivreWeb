@@ -1,0 +1,306 @@
+/* ===== WRAPPER ===== */
+.wrapper {
+  width: 100%;
+}
+
+/* Mobile: sem padding extra (já herdado do mainSection) */
+.mobile {
+  background: transparent;
+}
+
+/* Desktop: card centralizado dentro do mainSection */
+.desktop {
+  max-width: 520px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+/* ===== BOTÃO FECHAR (X) ===== */
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.15s ease, color 0.15s ease;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* ===== HEADER COM COR ===== */
+.profileHeader {
+  background: linear-gradient(135deg, #1E3A5F 0%, #2d5282 100%);
+  padding: 40px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 0 0 28px 28px;
+}
+
+.mobile .profileHeader {
+  padding: 32px 20px 28px;
+  border-radius: 0 0 24px 24px;
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-top: -16px;
+}
+
+.profileName {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.profileEmail {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}
+
+/* ===== LISTA DE MENU ===== */
+.menuList {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.desktop .menuList {
+  padding: 20px 0 8px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #334155;
+  transition: background 0.15s ease;
+  text-align: left;
+}
+
+.menuItem:hover {
+  background: #f8fafc;
+}
+
+.menuIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #eef2ff;
+  border-radius: 10px;
+  color: #1E3A5F;
+  flex-shrink: 0;
+}
+
+.menuLabel {
+  flex: 1;
+  font-weight: 500;
+}
+
+.menuChevron {
+  color: #94a3b8;
+}
+
+/* Logout */
+.logoutItem {
+  margin-top: 8px;
+}
+
+.logoutIcon {
+  background: #fee2e2;
+  color: #e74c3c;
+}
+
+.logoutLabel {
+  flex: 1;
+  font-weight: 500;
+  color: #e74c3c;
+}
+
+/* ===== SUB-PAGES (Editar / Trocar Senha) ===== */
+.subPage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+}
+
+.desktop .subPage {
+  padding: 24px;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1E3A5F;
+  padding: 8px 0;
+}
+
+.backBtn:hover {
+  opacity: 0.75;
+}
+
+/* Avatar na edição */
+.editAvatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+
+.emailLabel {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Campos de formulário */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.fieldInput {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.fieldInput:focus {
+  border-color: #1E3A5F;
+  box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.08);
+  background: #ffffff;
+}
+
+/* Avatar picker */
+.avatarPicker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.avatarRow {
+  display: flex;
+  gap: 14px;
+}
+
+.avatarOption {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.avatarOption:hover {
+  transform: scale(1.08);
+}
+
+.avatarSelected {
+  border-color: #1E3A5F;
+  box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.2);
+}
+
+.cameraBtn {
+  margin-top: 16px;;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 0.9rem;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.cameraBtn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.saveBtn {
+  width: 100%;
+  padding: 14px;
+  background: #1E3A5F;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  margin-top: 4px;
+}
+
+.saveBtn:hover {
+  background: #2d5282;
+}
+
+.saveBtn:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .menuItem {
+    padding: 14px 16px;
+  }
+
+  .subPage {
+    gap: 16px;
+  }
+}

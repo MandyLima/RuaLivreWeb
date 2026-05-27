@@ -42,8 +42,12 @@ export default function ForgotPassword() {
         setSucesso('');
         setEtapa('codigo');
       }, 1500);
-    } catch {
-      setErro('Erro ao enviar. Tente novamente.');
+    } catch (err: any) {
+      if (err.response?.status === 429) {
+        setErro('Muitas tentativas. Aguarde alguns minutos antes de tentar novamente.');
+      } else {
+        setErro(err.response?.data?.detail || 'Erro ao enviar. Tente novamente.');
+      }
     } finally {
       setCarregando(false);
     }

@@ -2,6 +2,11 @@
 import api from './api';
 import type { LoginRequest, LoginResponse, RegistrarRequest, RegistrarResponse } from '../types/api.types';
 
+export interface ResetPasswordRequest {
+  email: string;
+  codigo: string;
+  nova_senha: string;
+}
 class AuthService {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await api.post<LoginResponse>('/auth/login', credentials);
@@ -62,5 +67,9 @@ class AuthService {
   async forgotPassword(email: string): Promise<void> {
     await api.post('/auth/forgot-password', { email });
   }
+    async resetPassword(dados: ResetPasswordRequest): Promise<void> {
+    await api.post('/auth/reset-password', dados);
+  }
+
 }
 export default new AuthService();
